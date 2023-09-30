@@ -88,7 +88,8 @@
         android:layout_marginTop="70dp"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="60dp"
-        android:src="@drawable/logo2" />
+        android:src="@drawable/logo2"
+        />
 
 
 
