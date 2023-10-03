@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/naturewallpaper"
-    tools:context=".MainActivity">
+    tools:context=".LogIn">
 
     <TextView
         android:id="@+id/signup"
@@ -83,8 +83,32 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="7dp"
         android:backgroundTint="#84A98C"
-        android:text="SUBMIT" />
+        android:text="SUBMIT"
+        />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/already"
+        android:layout_below="@id/submit"
+        android:text="Already have an account ?"
+        android:textColor="@color/white"
+        android:layout_marginLeft="103dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="60dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/login"
+        android:layout_alignLeft="@id/already"
+        android:text="Sign in"
+        android:textColor="#CAD2C5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="167dp"
+        android:layout_marginTop="530dp"
+        />
 
 
     <ImageView
@@ -93,9 +117,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/submit"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="40dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/logo2"
         />
