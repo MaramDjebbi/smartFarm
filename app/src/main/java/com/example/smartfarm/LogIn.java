@@ -24,10 +24,12 @@ public class LogIn extends AppCompatActivity {
 
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
 
         auth = FirebaseAuth.getInstance();
         TextView email = (TextView) findViewById(R.id.email);
@@ -69,7 +71,8 @@ public class LogIn extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LogIn.this, SignUp.class));
+                Intent intent = new Intent( LogIn.this, SignUp.class);
+                startActivity(intent);
             }
         });
     }

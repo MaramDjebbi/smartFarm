@@ -20,17 +20,18 @@ import com.google.firebase.ktx.Firebase;
 
 public class SignUp extends AppCompatActivity {
 
-    private FirebaseAuth auth;
-//    private EditText username = (EditText) findViewById(R.id.username);
-    private EditText email = (EditText) findViewById(R.id.email);
-    private EditText password = (EditText) findViewById(R.id.password);
-    private MaterialButton submit = (MaterialButton) findViewById(R.id.submit);
-    private TextView login = (TextView) findViewById(R.id.login);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sing_up);
+
+         FirebaseAuth auth;
+//    private EditText username = (EditText) findViewById(R.id.username);
+         EditText email = (EditText) findViewById(R.id.email);
+         EditText password = (EditText) findViewById(R.id.password);
+         MaterialButton submit = (MaterialButton) findViewById(R.id.submit);
+         TextView login = (TextView) findViewById(R.id.login);
 
         auth = FirebaseAuth.getInstance();
 
