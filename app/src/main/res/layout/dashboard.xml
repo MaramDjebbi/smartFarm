@@ -1,71 +1,71 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- activity_main.xml -->
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/dashboard_scene"
+    tools:context=".dashBoard">
 
+    <TextView
+        android:id="@+id/textViewTemperature"
+        android:layout_width="134dp"
+        android:layout_height="86dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Température: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/backgroundneutre"
-        tools:context=".dashBoard">
+    <TextView
+        android:id="@+id/textViewPluie"
+        android:layout_width="142dp"
+        android:layout_height="94dp"
+        android:layout_below="@id/textViewTemperature"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Pluie: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperature" />
 
-        <TextView
-            android:id="@+id/textViewTemperature"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="16dp"
-            android:textColor="#CAD2C5"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_marginTop="200dp"
-            android:text="Température: " />
+    <TextView
+        android:id="@+id/textViewHumidite"
+        android:layout_width="154dp"
+        android:layout_height="126dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Humidité: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewPluie" />
 
-        <TextView
-            android:id="@+id/textViewPluie"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            android:layout_below="@id/textViewTemperature"
-            android:layout_marginStart="16dp"
-            android:textColor="#CAD2C5"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_marginTop="50dp"
-            android:text="Pluie: " />
+    <TextView
+        android:id="@+id/textViewLumiere"
+        android:layout_width="138dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Lumière: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewHumidite" />
 
-        <TextView
-            android:id="@+id/textViewHumidite"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="200dp"
-            android:textColor="#CAD2C5"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_marginTop="200dp"
-            android:text="Humidité: " />
+    <!-- Bouton pour aller vers ArrosageActivity -->
 
-        <TextView
-            android:id="@+id/textViewLumiere"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            android:layout_below="@id/textViewHumidite"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="50dp"
-            android:textColor="#CAD2C5"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:text="Lumière: " />
+    <Button
+        android:id="@+id/btnLedControl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewLumiere"
+        android:text="Contrôler les LEDs"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="596dp" />
 
-    <!--    <TextView-->
-<!--        android:id="@+id/signup"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="70dp"-->
-<!--        android:layout_marginTop="350dp"-->
-<!--        android:layout_marginEnd="70dp"-->
-<!--        android:layout_marginBottom="40dp"-->
-<!--        android:gravity="center"-->
-<!--        android:text="HELLO !"-->
-<!--        android:textColor="#CAD2C5"-->
-<!--        android:textSize="30dp"-->
-<!--        android:textStyle="bold" />-->
-
-</RelativeLayout>
+    <Button
+        android:id="@+id/btnArrosage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnLedControl"
+        android:text="Arrosage"
+        tools:layout_editor_absoluteX="228dp"
+        tools:layout_editor_absoluteY="596dp" />
+</androidx.constraintlayout.motion.widget.MotionLayout>

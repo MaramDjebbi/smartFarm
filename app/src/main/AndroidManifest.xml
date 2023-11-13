@@ -24,13 +24,17 @@
         </activity>
 
 
-
         <activity android:name=".SignUp"
             android:exported="true"/>
 
 
-
         <activity android:name=".dashBoard"
+            android:exported="true"/>
+
+        <activity android:name=".Arrosage"
+            android:exported="true"/>
+
+        <activity android:name=".LedControlActivity"
             android:exported="true"/>
     </application>
 

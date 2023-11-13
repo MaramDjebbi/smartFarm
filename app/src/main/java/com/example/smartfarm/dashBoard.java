@@ -1,9 +1,14 @@
 package com.example.smartfarm;
 
+import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -12,13 +17,29 @@ import com.google.firebase.database.ValueEventListener;
 
 public class dashBoard extends AppCompatActivity {
 
-
+    private Button btnLedControl, btnArrosage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
+        // Références des éléments de l'interface utilisateur
+        btnLedControl = findViewById(R.id.btnLedControl);
+        btnArrosage = findViewById(R.id.btnArrosage);
+        // Ajoutez un écouteur de clic au bouton pour LedControlActivity
+        btnLedControl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(dashBoard.this, LedControlActivity.class));
+            }
+        });
 
-
+        // Ajoutez un écouteur de clic au bouton pour ArrosageActivity
+        btnArrosage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(dashBoard.this, Arrosage.class));
+            }
+        });
         DatabaseReference firebaseDatabase;
 
         TextView textViewTemperature = findViewById(R.id.textViewTemperature);
@@ -42,9 +63,9 @@ public class dashBoard extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
-            });
+        });
 
 
 
-        }
+    }
 }
