@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
@@ -19,6 +20,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -76,32 +79,33 @@ public class dashBoard extends AppCompatActivity {
         TextView textViewHumidite = findViewById(R.id.textViewHumidite);
         TextView textViewLumiere = findViewById(R.id.textViewLumiere);
 
-        db.document("data/LJR1TlDHAGFHlPsF2WSi")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("data").document("LJR1TlDHAGFHlPsF2WSi")
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                Long temperature = document.getLong("temperature");
-                                Long pluie = document.getLong("pluie");
-                                Long humidite = document.getLong("humidite");
-                                Long lumiere = document.getLong("lumiere");
+                    public void onEvent(@Nullable DocumentSnapshot document,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            // Handle errors
+                            return;
+                        }
 
-                                // Update TextViews with Firestore data
-                                textViewTemperature.setText("Température:\n" + temperature);
-                                textViewPluie.setText("Pluie:\n" + pluie);
-                                textViewHumidite.setText("Humidité:\n" + humidite);
-                                textViewLumiere.setText("Lumière:\n" + lumiere);
-                            } else {
-                                // Handle the case where the document doesn't exist
-                            }
+                        if (document != null && document.exists()) {
+                            Long temperature = document.getLong("temperature");
+                            Long pluie = document.getLong("pluie");
+                            Long humidite = document.getLong("humidite");
+                            Long lumiere = document.getLong("lumiere");
+
+                            // Update TextViews with Firestore data
+                            textViewTemperature.setText("Température:\n" + temperature);
+                            textViewPluie.setText("Pluie:\n" + pluie);
+                            textViewHumidite.setText("Humidité:\n" + humidite);
+                            textViewLumiere.setText("Lumière:\n" + lumiere);
                         } else {
-                            // Handle failures
+                            // Handle the case where the document doesn't exist
                         }
                     }
                 });
+
 
 
 
