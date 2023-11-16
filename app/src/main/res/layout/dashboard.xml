@@ -1,71 +1,173 @@
-<!-- activity_main.xml -->
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/naturewallpaper"
     app:layoutDescription="@xml/dashboard_scene"
     tools:context=".dashBoard">
 
+
+    <TextView
+        android:id="@+id/overview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:text="Overview"
+        android:textColor="#CAD2C5"
+        android:textSize="40dp"
+        android:textStyle="bold" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/box"
+        android:layout_width="400dp"
+        android:layout_height="450dp"
+        android:layout_marginTop="180dp"
+        android:layout_centerHorizontal="true"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="30dp"
+        app:cardBackgroundColor="#cad2c5"
+        app:cardUseCompatPadding="true">
+
+
     <TextView
         android:id="@+id/textViewTemperature"
-        android:layout_width="134dp"
-        android:layout_height="86dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Température: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Température "
+        android:textColor="#354f52"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:drawableBottom="@drawable/customtemperature"
+        android:gravity="center_horizontal"
+        android:drawablePadding="0dp"/>
+        <TextView
+            android:id="@+id/Temperature"
+            android:layout_width="120dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_above="@id/textViewTemperature"
+            android:textColor="#000000"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:layout_marginTop="150dp"
+        />
 
-    <TextView
-        android:id="@+id/textViewPluie"
-        android:layout_width="142dp"
-        android:layout_height="94dp"
-        android:layout_below="@id/textViewTemperature"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Pluie: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewTemperature" />
-
-    <TextView
-        android:id="@+id/textViewHumidite"
-        android:layout_width="154dp"
-        android:layout_height="126dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Humidité: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewPluie" />
 
     <TextView
         android:id="@+id/textViewLumiere"
-        android:layout_width="138dp"
-        android:layout_height="140dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Lumière: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewHumidite" />
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="190dp"
+        android:text="Lumière"
+        android:textColor="#354f52"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:drawableBottom="@drawable/customlumiere"
+        android:gravity="center_horizontal"
+        android:drawablePadding="0dp"
+        />
+        <TextView
+            android:id="@+id/Lumiere"
+            android:layout_width="120dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="190dp"
+            android:layout_above="@id/textViewLumiere"
+            android:textColor="#000000"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:layout_marginTop="150dp"
+        />
 
-    <!-- Bouton pour aller vers ArrosageActivity -->
+        <!--        android:gravity="center"-->
+
+
+    <TextView
+        android:id="@+id/textViewPluie"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_below="@id/textViewTemperature"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="190dp"
+        android:text="Pluie "
+        android:drawableBottom="@drawable/custompluie"
+        android:drawablePadding="0dp"
+        android:textColor="#354f52"
+        android:textSize="20dp"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        />
+        <TextView
+            android:id="@+id/Pluie"
+            android:layout_width="120dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_above="@id/textViewPluie"
+            android:textColor="#000000"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:layout_marginTop="320dp"
+            />
+    <TextView
+        android:id="@+id/textViewHumidite"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="190dp"
+        android:layout_marginStart="190dp"
+        android:layout_below="@id/textViewLumiere"
+        android:text="Humidité "
+        android:textColor="#354f52"
+        android:drawableBottom="@drawable/customhumidite"
+        android:drawablePadding="0dp"
+        android:textSize="20dp"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        />
+        <TextView
+            android:id="@+id/Humidite"
+            android:layout_width="120dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="190dp"
+            android:layout_above="@id/textViewHumidite"
+            android:textColor="#000000"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:layout_marginTop="320dp"
+            />
+    </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/btnLedControl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewLumiere"
-        android:text="Contrôler les LEDs"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="596dp" />
+        android:layout_below="@id/box"
+        android:backgroundTint="#84a98c"
+        android:textColor="#000000"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:text="Allumer LED" />
 
     <Button
         android:id="@+id/btnArrosage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnLedControl"
-        android:text="Arrosage"
-        tools:layout_editor_absoluteX="228dp"
-        tools:layout_editor_absoluteY="596dp" />
-</androidx.constraintlayout.motion.widget.MotionLayout>
+        android:layout_below="@id/box"
+        android:backgroundTint="#84a98c"
+        android:textColor="#000000"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="250dp"
+        android:text="Arroser"
+         />
+</RelativeLayout>

@@ -6,7 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.*;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,10 +48,90 @@ public class dashBoard extends AppCompatActivity {
     private Button btnLedControl, btnArrosage;
     FirebaseMessaging firebaseMessaging;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.dashboard);
+
+        //TextView textViewToken = findViewById(R.id.token);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            System.out.println("Fetching FCM registration token failed");
+                            return;
+                        }
+                        // Get new FCM registration token
+                        String token = task.getResult();
+                        // Log and toast
+                        System.out.println("Token fetched: " + token + " ..end");
+                        //textViewToken.setText(token);
+                        String cloudFunctionUrl = "YOUR_CLOUD_FUNCTION_ENDPOINT"; // Replace with your Cloud Function URL
+                            String deviceToken = token;
+                            String requestBody = "{ \"token\": \"" + deviceToken + "\" }";
+                            // Create a request
+                            StringRequest request = new StringRequest(Request.Method.POST, cloudFunctionUrl,
+                                    new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String response) {
+                                            // Handle successful response
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            // Handle error
+                                        }
+                                    }) {
+                                @Override
+                                public byte[] getBody() throws AuthFailureError {
+                                    return requestBody.getBytes();
+                                }
+
+                                @Override
+                                public String getBodyContentType() {
+                                    return "application/json";
+                                }
+                            };
+
+                                // Add the request to the RequestQueue
+                               queue.add(request);
+                    }
+                });
+        //get device token
+
+        //
+//        FirebaseMessaging.getInstance().getToken()
+//                .addOnCompleteListener(new OnCompleteListener<String>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<String> task) {
+//                        if (task.isSuccessful() && task.getResult() != null) {
+//                            String token = task.getResult();
+//                            textViewToken.setText("Token:\n" + token);
+////                            // Use the obtained token as needed
+////
+//                        } else {
+//                            // Handle the error
+//                        }
+//                    }
+//                });
+
+
+
+
+
+
+
+
+
+
         // Références des éléments de l'interface utilisateur
         btnLedControl = findViewById(R.id.btnLedControl);
         btnArrosage = findViewById(R.id.btnArrosage);
@@ -74,10 +158,10 @@ public class dashBoard extends AppCompatActivity {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        TextView textViewTemperature = findViewById(R.id.textViewTemperature);
-        TextView textViewPluie = findViewById(R.id.textViewPluie);
-        TextView textViewHumidite = findViewById(R.id.textViewHumidite);
-        TextView textViewLumiere = findViewById(R.id.textViewLumiere);
+        TextView textViewTemperature = findViewById(R.id.Temperature);
+        TextView textViewPluie = findViewById(R.id.Pluie);
+        TextView textViewHumidite = findViewById(R.id.Humidite);
+        TextView textViewLumiere = findViewById(R.id.Lumiere);
 
         db.collection("data").document("LJR1TlDHAGFHlPsF2WSi")
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -96,10 +180,10 @@ public class dashBoard extends AppCompatActivity {
                             Long lumiere = document.getLong("lumiere");
 
                             // Update TextViews with Firestore data
-                            textViewTemperature.setText("Température:\n" + temperature);
-                            textViewPluie.setText("Pluie:\n" + pluie);
-                            textViewHumidite.setText("Humidité:\n" + humidite);
-                            textViewLumiere.setText("Lumière:\n" + lumiere);
+                            textViewTemperature.setText(temperature.toString());
+                            textViewPluie.setText(pluie.toString());
+                            textViewHumidite.setText(humidite.toString());
+                            textViewLumiere.setText(lumiere.toString());
                         } else {
                             // Handle the case where the document doesn't exist
                         }
