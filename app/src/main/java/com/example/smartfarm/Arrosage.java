@@ -40,6 +40,8 @@ public class Arrosage extends AppCompatActivity {
 
         DatabaseReference firebaseDatabase;
         firebaseDatabase = FirebaseDatabase.getInstance().getReference();
+
+
         TextView textViewTemperature = findViewById(R.id.temperature);
         TextView textViewHumidite = findViewById(R.id.humidite);
         TextView textViewArrosageVrai = findViewById(R.id.arrosageVrai);
@@ -84,15 +86,16 @@ public class Arrosage extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
 
-        // Ajoutez un écouteur de clic au bouton
+
+
+
+        // Ajoutez un écouteur de clic au bouton watering plants
         btnToggleWatering.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Inversez l'état de l' dans Firebase
                 toggleWateringStatus();
             }
-
-
         });
 
 
@@ -108,7 +111,8 @@ public class Arrosage extends AppCompatActivity {
         });
 
 
-        // Ajoutez un écouteur de clic au bouton
+
+        // Ajoutez un écouteur de clic au bouton robinet animaux
         btnOuvrirRobinet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,7 +154,6 @@ public class Arrosage extends AppCompatActivity {
                 Boolean currentStatus = dataSnapshot.getValue(Boolean.class);
                 if (currentStatus != null) {
                     boolean newStatus = !currentStatus;
-
                     // Mettez à jour l'état du robinet dans Firebase
                     robinetStatusRef.setValue(newStatus);
                 }
