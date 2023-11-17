@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/naturewallpaper"
     android:layout_height="match_parent"
     tools:context=".LedControlActivity">
 
@@ -19,6 +21,18 @@
 
     <!-- Bouton de retour -->
 
+    <androidx.appcompat.widget.SwitchCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_marginStart="50dp"
+        app:showText="true"
+        android:textOn="On"
+        android:textOff="Off"
+        />
+<!--    android:thumb="@drawable/thumb"-->
+<!--        app:track="@drawable/track"-->
+
 
     <ImageButton
         android:id="@+id/btnBack"
@@ -29,4 +43,4 @@
         android:src="@android:drawable/ic_media_previous"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

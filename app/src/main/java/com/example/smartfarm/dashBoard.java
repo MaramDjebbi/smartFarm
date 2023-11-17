@@ -48,8 +48,6 @@ public class dashBoard extends AppCompatActivity {
     private Button btnLedControl, btnArrosage;
     FirebaseMessaging firebaseMessaging;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,8 +104,6 @@ public class dashBoard extends AppCompatActivity {
                     }
                 });
         //get device token
-
-        //
 //        FirebaseMessaging.getInstance().getToken()
 //                .addOnCompleteListener(new OnCompleteListener<String>() {
 //                    @Override
@@ -122,15 +118,6 @@ public class dashBoard extends AppCompatActivity {
 //                        }
 //                    }
 //                });
-
-
-
-
-
-
-
-
-
 
         // Références des éléments de l'interface utilisateur
         btnLedControl = findViewById(R.id.btnLedControl);
@@ -150,68 +137,64 @@ public class dashBoard extends AppCompatActivity {
                 startActivity(new Intent(dashBoard.this, Arrosage.class));
             }
         });
-        DatabaseReference firebaseDatabase;
 
 
-//        firebaseDatabase = FirebaseDatabase.getInstance().getReference();
+
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+//        db.collection("data").document("LJR1TlDHAGFHlPsF2WSi")
+//                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onEvent(@Nullable DocumentSnapshot document,
+//                                        @Nullable FirebaseFirestoreException e) {
+//                        if (e != null) {
+//                            // Handle errors
+//                            return;
+//                        }
+//
+//                        if (document != null && document.exists()) {
+//                            Long temperature = document.getLong("temperature");
+//                            Long pluie = document.getLong("pluie");
+//                            Long humidite = document.getLong("humidite");
+//                            Long lumiere = document.getLong("lumiere");
+//
+//                            // Update TextViews with Firestore data
+//                            textViewTemperature.setText(temperature.toString());
+//                            textViewPluie.setText(pluie.toString());
+//                            textViewHumidite.setText(humidite.toString());
+//                            textViewLumiere.setText(lumiere.toString());
+//                        } else {
+//                            // Handle the case where the document doesn't exist
+//                        }
+//                    }
+//                });
 
         TextView textViewTemperature = findViewById(R.id.Temperature);
         TextView textViewPluie = findViewById(R.id.Pluie);
         TextView textViewHumidite = findViewById(R.id.Humidite);
         TextView textViewLumiere = findViewById(R.id.Lumiere);
+        DatabaseReference firebaseDatabase;
+        firebaseDatabase = FirebaseDatabase.getInstance().getReference();
+        firebaseDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String temperature = dataSnapshot.child("temperature").getValue(String.class);
+                String pluie = dataSnapshot.child("pluie").getValue(String.class);
+                String humidite = dataSnapshot.child("humidite").getValue(String.class);
+                String lumiere = dataSnapshot.child("lumiere").getValue(String.class);
 
-        db.collection("data").document("LJR1TlDHAGFHlPsF2WSi")
-                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot document,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            // Handle errors
-                            return;
-                        }
-
-                        if (document != null && document.exists()) {
-                            Long temperature = document.getLong("temperature");
-                            Long pluie = document.getLong("pluie");
-                            Long humidite = document.getLong("humidite");
-                            Long lumiere = document.getLong("lumiere");
-
-                            // Update TextViews with Firestore data
-                            textViewTemperature.setText(temperature.toString());
-                            textViewPluie.setText(pluie.toString());
-                            textViewHumidite.setText(humidite.toString());
-                            textViewLumiere.setText(lumiere.toString());
-                        } else {
-                            // Handle the case where the document doesn't exist
-                        }
-                    }
-                });
+                textViewTemperature.setText(temperature);
+                textViewPluie.setText(pluie);
+                textViewHumidite.setText(humidite);
+                textViewLumiere.setText(lumiere);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
 
 
-
-
-
-//        firebaseDatabase.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                String temperature = dataSnapshot.child("temperature").getValue(String.class);
-//                String pluie = dataSnapshot.child("pluie").getValue(String.class);
-//                String humidite = dataSnapshot.child("humidite").getValue(String.class);
-//                String lumiere = dataSnapshot.child("lumiere").getValue(String.class);
-//
-//                textViewTemperature.setText("Température:\n" + temperature);
-//                textViewPluie.setText("Pluie:\n" + pluie);
-//                textViewHumidite.setText("Humidité:\n" + humidite);
-//                textViewLumiere.setText("Lumière:\n" + lumiere);
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {}
-//        });
-//
-//
 
 
 

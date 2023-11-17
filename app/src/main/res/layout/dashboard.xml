@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
 
-
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
@@ -71,7 +71,7 @@
         android:layout_height="120dp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="190dp"
-        android:text="Brightness"
+        android:text="Lumière"
         android:textColor="#354f52"
         android:textSize="20dp"
         android:textStyle="bold"
@@ -101,7 +101,7 @@
         android:layout_below="@id/textViewTemperature"
         android:layout_marginStart="20dp"
         android:layout_marginTop="190dp"
-        android:text="Rain "
+        android:text="Niveau d'eau"
         android:drawableBottom="@drawable/custompluie"
         android:drawablePadding="0dp"
         android:textColor="#354f52"
@@ -127,7 +127,7 @@
         android:layout_marginTop="190dp"
         android:layout_marginStart="190dp"
         android:layout_below="@id/textViewLumiere"
-        android:text="Humidity "
+        android:text="Humidité "
         android:textColor="#354f52"
         android:drawableBottom="@drawable/customhumidite"
         android:drawablePadding="0dp"

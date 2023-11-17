@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,20 +22,68 @@ public class Arrosage extends AppCompatActivity {
     private Button btnToggleWatering;
     private DatabaseReference robinetStatusRef;
     private Button btnOuvrirRobinet;
-    private ImageButton btnBack;
+    private Button btnBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.arrosage);
+
+
         btnOuvrirRobinet = findViewById(R.id.btnOuvrirRobinet);
         btnToggleWatering = findViewById(R.id.btnToggleWatering);
-        btnBack = findViewById(R.id.btnBack); // Initialisation du bouton de retour
+        btnBack = findViewById(R.id.Back);
+
         // Obtenez une référence à l'état de l' dans Firebase
         wateringStatusRef = FirebaseDatabase.getInstance().getReference().child("wateringStatus");
-
-
         // Obtenez une référence à l'état du robinet dans Firebase
         robinetStatusRef = FirebaseDatabase.getInstance().getReference().child("robinetStatus");
+
+        DatabaseReference firebaseDatabase;
+        firebaseDatabase = FirebaseDatabase.getInstance().getReference();
+        TextView textViewTemperature = findViewById(R.id.temperature);
+        TextView textViewHumidite = findViewById(R.id.humidite);
+        TextView textViewArrosageVrai = findViewById(R.id.arrosageVrai);
+        TextView textViewArrosageFaux = findViewById(R.id.arrosageFaux);
+        TextView textViewEauVrai = findViewById(R.id.eauVrai);
+        TextView textViewEauFaux = findViewById(R.id.eauFaux);
+        TextView textViewHappyAnimal = findViewById(R.id.happyAnimal);
+        TextView textViewSadAnimal = findViewById(R.id.sadAnimal);
+        TextView textViewHappyPlant = findViewById(R.id.happyPlant);
+        TextView textViewSadPlant = findViewById(R.id.sadPlant);
+        firebaseDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String temperature = dataSnapshot.child("temperature").getValue(String.class);
+                String humidite = dataSnapshot.child("humidite").getValue(String.class);
+                textViewTemperature.setText(temperature);
+                textViewHumidite.setText(humidite);
+                if (Integer.parseInt(humidite) > 50) {
+                    textViewArrosageVrai.setVisibility(View.VISIBLE);
+                    textViewArrosageFaux.setVisibility(View.GONE);
+                    textViewHappyPlant.setVisibility(View.GONE);
+                    textViewSadPlant.setVisibility(View.VISIBLE);
+                } else {
+                    textViewArrosageVrai.setVisibility(View.GONE);
+                    textViewArrosageFaux.setVisibility(View.VISIBLE);
+                    textViewHappyPlant.setVisibility(View.VISIBLE);
+                    textViewSadPlant.setVisibility(View.GONE);
+                }
+                if (Integer.parseInt(temperature) > 35) {
+                    textViewEauVrai.setVisibility(View.VISIBLE);
+                    textViewEauFaux.setVisibility(View.GONE);
+                    textViewHappyAnimal.setVisibility(View.GONE);
+                    textViewSadAnimal.setVisibility(View.VISIBLE);
+                } else {
+                    textViewEauVrai.setVisibility(View.GONE);
+                    textViewEauFaux.setVisibility(View.VISIBLE);
+                    textViewHappyAnimal.setVisibility(View.VISIBLE);
+                    textViewSadAnimal.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+
         // Ajoutez un écouteur de clic au bouton
         btnToggleWatering.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +94,8 @@ public class Arrosage extends AppCompatActivity {
 
 
         });
+
+
         // Ajoutez un écouteur de clic au bouton de retour
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +106,8 @@ public class Arrosage extends AppCompatActivity {
                 finish(); // Terminez cette activité
             }
         });
+
+
         // Ajoutez un écouteur de clic au bouton
         btnOuvrirRobinet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,4 +163,3 @@ public class Arrosage extends AppCompatActivity {
         });
     }
 }
-
