@@ -8,6 +8,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -100,6 +101,10 @@ public class LedControlActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // Appelé lorsque l'état du Switch change
                 toggleLedStatus(isChecked);
+                if(isChecked)
+                    Toast.makeText(LedControlActivity.this, "LED is On", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(LedControlActivity.this, "LED is OFF", Toast.LENGTH_SHORT).show();
             }
         });
 
