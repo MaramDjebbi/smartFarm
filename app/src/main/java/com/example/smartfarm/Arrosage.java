@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -120,7 +121,6 @@ public class Arrosage extends AppCompatActivity {
                     btnToggleWatering.setChecked(toggleStatus);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Handle error
@@ -138,7 +138,6 @@ public class Arrosage extends AppCompatActivity {
                     btnOuvrirRobinet.setChecked(toggleStatus);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Handle error
@@ -191,9 +190,12 @@ public class Arrosage extends AppCompatActivity {
                 Boolean currentStatus = dataSnapshot.getValue(Boolean.class);
                 if (currentStatus != null) {
                     boolean newStatus = !currentStatus;
-
                     // Mettez à jour l'état de l' dans Firebase
                     wateringStatusRef.setValue(newStatus);
+                    if(newStatus)
+                        Toast.makeText(Arrosage.this, "Arrosage is On", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(Arrosage.this, "Arrosage is Off", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -215,6 +217,10 @@ public class Arrosage extends AppCompatActivity {
                     boolean newStatus = !currentStatus;
                     // Mettez à jour l'état du robinet dans Firebase
                     robinetStatusRef.setValue(newStatus);
+                    if(newStatus)
+                        Toast.makeText(Arrosage.this, "Robinet is On", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(Arrosage.this, "Robinet is Off", Toast.LENGTH_SHORT).show();
                 }
             }
 
