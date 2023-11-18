@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,9 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 public class Arrosage extends AppCompatActivity {
 
     private DatabaseReference wateringStatusRef;
-    private Button btnToggleWatering;
+    private Switch btnToggleWatering, btnOuvrirRobinet;
     private DatabaseReference robinetStatusRef;
-    private Button btnOuvrirRobinet;
     private Button btnBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,38 +52,97 @@ public class Arrosage extends AppCompatActivity {
         TextView textViewSadAnimal = findViewById(R.id.sadAnimal);
         TextView textViewHappyPlant = findViewById(R.id.happyPlant);
         TextView textViewSadPlant = findViewById(R.id.sadPlant);
+        TextView textViewRobinetEnCours = findViewById(R.id.RobinetEnCours);
+        TextView textViewArrosageEnCours = findViewById(R.id.ArrosageEnCours);
         firebaseDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String temperature = dataSnapshot.child("temperature").getValue(String.class);
                 String humidite = dataSnapshot.child("humidite").getValue(String.class);
+                Boolean WateringStatus = dataSnapshot.child("wateringStatus").getValue(Boolean.class);
+                Boolean RobinetStatus = dataSnapshot.child("robinetStatus").getValue(Boolean.class);
                 textViewTemperature.setText(temperature);
                 textViewHumidite.setText(humidite);
-                if (Integer.parseInt(humidite) > 50) {
+                if(WateringStatus){
+                    textViewArrosageVrai.setVisibility(View.GONE);
+                    textViewArrosageFaux.setVisibility(View.GONE);
+                    textViewHappyPlant.setVisibility(View.GONE);
+                    textViewSadPlant.setVisibility(View.GONE);
+                    textViewArrosageEnCours.setVisibility(View.VISIBLE);
+                }
+                else if (Integer.parseInt(humidite) > 50) {
                     textViewArrosageVrai.setVisibility(View.VISIBLE);
                     textViewArrosageFaux.setVisibility(View.GONE);
                     textViewHappyPlant.setVisibility(View.GONE);
                     textViewSadPlant.setVisibility(View.VISIBLE);
+                    textViewArrosageEnCours.setVisibility(View.GONE);
                 } else {
                     textViewArrosageVrai.setVisibility(View.GONE);
                     textViewArrosageFaux.setVisibility(View.VISIBLE);
                     textViewHappyPlant.setVisibility(View.VISIBLE);
                     textViewSadPlant.setVisibility(View.GONE);
+                    textViewArrosageEnCours.setVisibility(View.GONE);
                 }
-                if (Integer.parseInt(temperature) > 35) {
+                if(RobinetStatus){
+                    textViewEauVrai.setVisibility(View.GONE);
+                    textViewEauFaux.setVisibility(View.GONE);
+                    textViewHappyAnimal.setVisibility(View.GONE);
+                    textViewSadAnimal.setVisibility(View.GONE);
+                    textViewRobinetEnCours.setVisibility(View.VISIBLE);
+                }
+                else if (Integer.parseInt(temperature) > 35) {
                     textViewEauVrai.setVisibility(View.VISIBLE);
                     textViewEauFaux.setVisibility(View.GONE);
                     textViewHappyAnimal.setVisibility(View.GONE);
                     textViewSadAnimal.setVisibility(View.VISIBLE);
+                    textViewRobinetEnCours.setVisibility(View.GONE);
                 } else {
                     textViewEauVrai.setVisibility(View.GONE);
                     textViewEauFaux.setVisibility(View.VISIBLE);
                     textViewHappyAnimal.setVisibility(View.VISIBLE);
                     textViewSadAnimal.setVisibility(View.GONE);
+                    textViewRobinetEnCours.setVisibility(View.GONE);
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+
+
+
+
+        //display the switch toggleWatering according the its value in the data base (on for true and off for false)
+        wateringStatusRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Boolean toggleStatus = dataSnapshot.getValue(Boolean.class);
+                if (toggleStatus != null) {
+                    btnToggleWatering.setChecked(toggleStatus);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle error
+            }
+        });
+
+
+
+        //display the switch toggleRobinet according the its value in the data base (on for true and off for false)
+        robinetStatusRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Boolean toggleStatus = dataSnapshot.getValue(Boolean.class);
+                if (toggleStatus != null) {
+                    btnOuvrirRobinet.setChecked(toggleStatus);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle error
+            }
         });
 
 

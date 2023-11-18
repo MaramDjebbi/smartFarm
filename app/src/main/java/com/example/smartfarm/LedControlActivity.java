@@ -35,6 +35,7 @@ public class LedControlActivity extends AppCompatActivity {
         TextView textViewLumiereFaux = findViewById(R.id.LumiereFaux);
         TextView textViewBulbOn = findViewById(R.id.bulbon);
         TextView textViewBulbOff = findViewById(R.id.bulboff);
+        TextView textViewLumiereEnCours = findViewById(R.id.LumiereEnCours);
         // Obtenez une référence à l'état de la LED dans Firebase
         ledStatusRef = FirebaseDatabase.getInstance().getReference().child("ledStatus");
 
@@ -46,21 +47,48 @@ public class LedControlActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String Lumiere = dataSnapshot.child("lumiere").getValue(String.class);
+                Boolean ledStatus = dataSnapshot.child("ledStatus").getValue(Boolean.class);
                 textViewLumiere.setText(Lumiere);
-                if (Integer.parseInt(Lumiere) < 70) {
+                if(ledStatus){
+                    textViewLumiereVrai.setVisibility(View.GONE);
+                    textViewLumiereFaux.setVisibility(View.GONE);
+                    textViewBulbOff.setVisibility(View.GONE);
+                    textViewBulbOn.setVisibility(View.GONE);
+                    textViewLumiereEnCours.setVisibility(View.VISIBLE);
+                }
+                else if (Integer.parseInt(Lumiere) < 70) {
                     textViewLumiereVrai.setVisibility(View.VISIBLE);
                     textViewLumiereFaux.setVisibility(View.GONE);
                     textViewBulbOff.setVisibility(View.VISIBLE);
                     textViewBulbOn.setVisibility(View.GONE);
+                    textViewLumiereEnCours.setVisibility(View.GONE);
                 } else {
                     textViewBulbOn.setVisibility(View.VISIBLE);
                     textViewLumiereFaux.setVisibility(View.VISIBLE);
                     textViewBulbOff.setVisibility(View.GONE);
                     textViewLumiereVrai.setVisibility(View.GONE);
+                    textViewLumiereEnCours.setVisibility(View.GONE);
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+
+
+        //display the switch according the its value in the data base (on for true and off for false)
+        ledStatusRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Boolean toggleStatus = dataSnapshot.getValue(Boolean.class);
+                if (toggleStatus != null) {
+                    switchToggleLed.setChecked(toggleStatus);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle error
+            }
         });
 
 

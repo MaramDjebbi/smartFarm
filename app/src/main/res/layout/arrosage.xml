@@ -34,7 +34,7 @@
 
         <TextView
             android:id="@+id/ToggleWatering"
-            android:layout_width="150dp"
+            android:layout_width="160dp"
             android:layout_height="35dp"
             android:background="@drawable/rounded_background"
             android:textColor="#000000"
@@ -67,7 +67,7 @@
             android:layout_marginTop="120dp"
             android:layout_marginStart="20dp"
             android:textColor="@color/black"
-            android:text="Vous devez déclencher l'arrosage pour les plantes. "
+            android:text="Vous devez déclencher l'arrosage pour\n les plantes !"
             />
         <TextView
             android:id="@+id/arrosageFaux"
@@ -76,8 +76,20 @@
             android:layout_marginTop="120dp"
             android:layout_marginStart="20dp"
             android:textColor="@color/black"
-            android:text="Vous n'avez pas besoin d'arroser les plantes."
+            android:text="Vous n'avez pas besoin d'arroser les\n plantes."
             />
+        <TextView
+            android:id="@+id/ArrosageEnCours"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="120dp"
+            android:layout_marginStart="20dp"
+            android:textColor="#52796f"
+            android:text="L'arrosage des plantes est en cours !"
+            />
+<!--        android:background="@drawable/rounded_background"-->
+
         <TextView
             android:id="@+id/happyPlant"
             android:layout_width="60dp"
@@ -137,7 +149,7 @@
 
         <TextView
             android:id="@+id/animaux"
-            android:layout_width="210dp"
+            android:layout_width="220dp"
             android:layout_height="35dp"
             android:background="@drawable/rounded_background"
             android:textColor="#000000"
@@ -170,7 +182,7 @@
             android:layout_marginTop="120dp"
             android:layout_marginStart="20dp"
             android:textColor="@color/black"
-            android:text="Vous devez ouvrir le robinet pour les animaux "
+            android:text="Vous devez ouvrir le robinet pour les\n animaux !"
             />
         <TextView
             android:id="@+id/eauFaux"
@@ -179,7 +191,17 @@
             android:layout_marginTop="120dp"
             android:layout_marginStart="20dp"
             android:textColor="@color/black"
-            android:text="Vous n'avez pas besoin d'ouvrir le robinet pour les animaux "
+            android:text="Vous n'avez pas besoin d'ouvrir le robinet pour les animaux."
+            />
+        <TextView
+            android:id="@+id/RobinetEnCours"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="120dp"
+            android:layout_marginStart="20dp"
+            android:textColor="#52796f"
+            android:text="Le robinet est déjà ouvert !"
             />
         <TextView
             android:id="@+id/happyAnimal"
