@@ -46,78 +46,17 @@ import com.google.firebase.messaging.*;
 public class dashBoard extends AppCompatActivity {
 
     private Button btnLedControl, btnArrosage;
-    FirebaseMessaging firebaseMessaging;
+//    FirebaseMessaging firebaseMessaging;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.dashboard);
+        //start the service
+//        Intent serviceIntent = new Intent(this, myService.class);
+//        startService(serviceIntent);
 
-        //TextView textViewToken = findViewById(R.id.token);
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        RequestQueue queue = Volley.newRequestQueue(this);
-
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            System.out.println("Fetching FCM registration token failed");
-                            return;
-                        }
-                        // Get new FCM registration token
-                        String token = task.getResult();
-                        // Log and toast
-                        System.out.println("Token fetched: " + token + " ..end");
-                        //textViewToken.setText(token);
-                        String cloudFunctionUrl = "YOUR_CLOUD_FUNCTION_ENDPOINT"; // Replace with your Cloud Function URL
-                            String deviceToken = token;
-                            String requestBody = "{ \"token\": \"" + deviceToken + "\" }";
-                            // Create a request
-                            StringRequest request = new StringRequest(Request.Method.POST, cloudFunctionUrl,
-                                    new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            // Handle successful response
-                                        }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            // Handle error
-                                        }
-                                    }) {
-                                @Override
-                                public byte[] getBody() throws AuthFailureError {
-                                    return requestBody.getBytes();
-                                }
-
-                                @Override
-                                public String getBodyContentType() {
-                                    return "application/json";
-                                }
-                            };
-
-                                // Add the request to the RequestQueue
-                               queue.add(request);
-                    }
-                });
-        //get device token
-//        FirebaseMessaging.getInstance().getToken()
-//                .addOnCompleteListener(new OnCompleteListener<String>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<String> task) {
-//                        if (task.isSuccessful() && task.getResult() != null) {
-//                            String token = task.getResult();
-//                            textViewToken.setText("Token:\n" + token);
-////                            // Use the obtained token as needed
-////
-//                        } else {
-//                            // Handle the error
-//                        }
-//                    }
-//                });
 
         // Références des éléments de l'interface utilisateur
         btnLedControl = findViewById(R.id.btnLedControl);
@@ -139,64 +78,47 @@ public class dashBoard extends AppCompatActivity {
         });
 
 
-
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
-
-//        db.collection("data").document("LJR1TlDHAGFHlPsF2WSi")
-//                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onEvent(@Nullable DocumentSnapshot document,
-//                                        @Nullable FirebaseFirestoreException e) {
-//                        if (e != null) {
-//                            // Handle errors
-//                            return;
-//                        }
-//
-//                        if (document != null && document.exists()) {
-//                            Long temperature = document.getLong("temperature");
-//                            Long pluie = document.getLong("pluie");
-//                            Long humidite = document.getLong("humidite");
-//                            Long lumiere = document.getLong("lumiere");
-//
-//                            // Update TextViews with Firestore data
-//                            textViewTemperature.setText(temperature.toString());
-//                            textViewPluie.setText(pluie.toString());
-//                            textViewHumidite.setText(humidite.toString());
-//                            textViewLumiere.setText(lumiere.toString());
-//                        } else {
-//                            // Handle the case where the document doesn't exist
-//                        }
-//                    }
-//                });
-
         TextView textViewTemperature = findViewById(R.id.Temperature);
         TextView textViewPluie = findViewById(R.id.Pluie);
         TextView textViewHumidite = findViewById(R.id.Humidite);
         TextView textViewLumiere = findViewById(R.id.Lumiere);
+        TextView textViewGaz = findViewById(R.id.Gaz);
+        TextView textViewMotion = findViewById(R.id.Motion);
+
         DatabaseReference firebaseDatabase;
         firebaseDatabase = FirebaseDatabase.getInstance().getReference();
         firebaseDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String temperature = dataSnapshot.child("temperature").getValue(String.class);
-                String pluie = dataSnapshot.child("pluie").getValue(String.class);
-                String humidite = dataSnapshot.child("humidite").getValue(String.class);
-                String lumiere = dataSnapshot.child("lumiere").getValue(String.class);
+                try {
+                    String temperature = dataSnapshot.child("sensorData/temperature").getValue(String.class);
+                    String humidite = dataSnapshot.child("sensorData/humidity").getValue(String.class);
+                    String pluie = dataSnapshot.child("moistureData/pluie").getValue(String.class);
+                    String lumiere = dataSnapshot.child("lightData/lightValue").getValue(String.class);
+                    String gaz = dataSnapshot.child("gasData/gasValue").getValue(String.class);
+                    Boolean motion = dataSnapshot.child("motionData/motionDetected").getValue(Boolean.class);
 
-                textViewTemperature.setText(temperature);
-                textViewPluie.setText(pluie);
-                textViewHumidite.setText(humidite);
-                textViewLumiere.setText(lumiere);
+
+                    if (temperature != null && humidite != null && pluie != null && lumiere != null && gaz != null) {
+                        textViewTemperature.setText(temperature);
+                        textViewPluie.setText(pluie);
+                        textViewHumidite.setText(humidite);
+                        textViewLumiere.setText(lumiere);
+                        textViewGaz.setText(gaz);
+                        if(motion)
+                            textViewMotion.setText("Mouvement detecté !");
+                        else
+                            textViewMotion.setText("Pas de mouvement !");
+                    } else {
+                        // Handle null values if needed
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace(); // Log any exceptions for debugging
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
-
-
-
-
 
     }
 

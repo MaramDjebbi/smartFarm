@@ -38,7 +38,7 @@ public class LedControlActivity extends AppCompatActivity {
         TextView textViewBulbOff = findViewById(R.id.bulboff);
         TextView textViewLumiereEnCours = findViewById(R.id.LumiereEnCours);
         // Obtenez une référence à l'état de la LED dans Firebase
-        ledStatusRef = FirebaseDatabase.getInstance().getReference().child("ledStatus");
+        ledStatusRef = FirebaseDatabase.getInstance().getReference().child("ledData/ledState");
 
 
         DatabaseReference firebaseDatabase;
@@ -47,8 +47,8 @@ public class LedControlActivity extends AppCompatActivity {
         firebaseDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String Lumiere = dataSnapshot.child("lumiere").getValue(String.class);
-                Boolean ledStatus = dataSnapshot.child("ledStatus").getValue(Boolean.class);
+                String Lumiere = dataSnapshot.child("lightData/lightValue").getValue(String.class);
+                Boolean ledStatus = dataSnapshot.child("ledData/ledState").getValue(Boolean.class);
                 textViewLumiere.setText(Lumiere);
                 if(ledStatus){
                     textViewLumiereVrai.setVisibility(View.GONE);

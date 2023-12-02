@@ -37,7 +37,7 @@ public class Arrosage extends AppCompatActivity {
         // Obtenez une référence à l'état de l' dans Firebase
         wateringStatusRef = FirebaseDatabase.getInstance().getReference().child("wateringStatus");
         // Obtenez une référence à l'état du robinet dans Firebase
-        robinetStatusRef = FirebaseDatabase.getInstance().getReference().child("robinetStatus");
+        robinetStatusRef = FirebaseDatabase.getInstance().getReference().child("pumpStatus");
 
         DatabaseReference firebaseDatabase;
         firebaseDatabase = FirebaseDatabase.getInstance().getReference();
@@ -58,12 +58,12 @@ public class Arrosage extends AppCompatActivity {
         firebaseDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String temperature = dataSnapshot.child("temperature").getValue(String.class);
-                String humidite = dataSnapshot.child("humidite").getValue(String.class);
+                String temperature = dataSnapshot.child("sensorData/temperature").getValue(String.class);
+                String humidite = dataSnapshot.child("sensorData/humidity").getValue(String.class);
                 Boolean WateringStatus = dataSnapshot.child("wateringStatus").getValue(Boolean.class);
-                Boolean RobinetStatus = dataSnapshot.child("robinetStatus").getValue(Boolean.class);
-                textViewTemperature.setText(temperature);
-                textViewHumidite.setText(humidite);
+                Boolean RobinetStatus = dataSnapshot.child("pumpStatus").getValue(Boolean.class);
+                textViewTemperature.setText((CharSequence) temperature);
+                textViewHumidite.setText((CharSequence) humidite);
                 if(WateringStatus){
                     textViewArrosageVrai.setVisibility(View.GONE);
                     textViewArrosageFaux.setVisibility(View.GONE);
