@@ -62,8 +62,10 @@ public class Arrosage extends AppCompatActivity {
                 String humidite = dataSnapshot.child("sensorData/humidity").getValue(String.class);
                 Boolean WateringStatus = dataSnapshot.child("wateringStatus").getValue(Boolean.class);
                 Boolean RobinetStatus = dataSnapshot.child("pumpStatus").getValue(Boolean.class);
-                textViewTemperature.setText((CharSequence) temperature);
-                textViewHumidite.setText((CharSequence) humidite);
+
+                textViewTemperature.setText(temperature);
+                textViewHumidite.setText(humidite);
+
                 if(WateringStatus){
                     textViewArrosageVrai.setVisibility(View.GONE);
                     textViewArrosageFaux.setVisibility(View.GONE);
