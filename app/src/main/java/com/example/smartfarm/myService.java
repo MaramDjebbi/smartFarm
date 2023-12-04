@@ -42,7 +42,7 @@ public class myService extends Service {
     @Override
     public void onDestroy() {
         myRef.removeEventListener(listener);
-        Toast.makeText(getApplicationContext(),"Stop hacking", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"Stop service", Toast.LENGTH_LONG).show();
     }
 
 
