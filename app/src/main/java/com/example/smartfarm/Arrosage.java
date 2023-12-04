@@ -58,8 +58,8 @@ public class Arrosage extends AppCompatActivity {
         firebaseDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String temperature = dataSnapshot.child("sensorData/temperature").getValue(String.class);
-                String humidite = dataSnapshot.child("sensorData/humidity").getValue(String.class);
+                String temperature = dataSnapshot.child("sensorData/humidity/temperature").getValue(String.class);
+                String humidite = dataSnapshot.child("sensorData/humidity/humidity").getValue(String.class);
                 Boolean WateringStatus = dataSnapshot.child("wateringStatus").getValue(Boolean.class);
                 Boolean RobinetStatus = dataSnapshot.child("pumpStatus").getValue(Boolean.class);
 
@@ -73,7 +73,7 @@ public class Arrosage extends AppCompatActivity {
                     textViewSadPlant.setVisibility(View.GONE);
                     textViewArrosageEnCours.setVisibility(View.VISIBLE);
                 }
-                else if (Integer.parseInt(humidite) > 50) {
+                else if (Double.parseDouble(humidite) > 50) {
                     textViewArrosageVrai.setVisibility(View.VISIBLE);
                     textViewArrosageFaux.setVisibility(View.GONE);
                     textViewHappyPlant.setVisibility(View.GONE);
@@ -93,7 +93,7 @@ public class Arrosage extends AppCompatActivity {
                     textViewSadAnimal.setVisibility(View.GONE);
                     textViewRobinetEnCours.setVisibility(View.VISIBLE);
                 }
-                else if (Integer.parseInt(temperature) > 35) {
+                else if (Double.parseDouble(temperature) > 35) {
                     textViewEauVrai.setVisibility(View.VISIBLE);
                     textViewEauFaux.setVisibility(View.GONE);
                     textViewHappyAnimal.setVisibility(View.GONE);

@@ -91,11 +91,11 @@ public class dashBoard extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
-                    String temperature = dataSnapshot.child("sensorData/temperature").getValue(String.class);
-                    String humidite = dataSnapshot.child("sensorData/humidity").getValue(String.class);
-                    String pluie = dataSnapshot.child("moistureData/pluie").getValue(String.class);
-                    String lumiere = dataSnapshot.child("lightData/lightValue").getValue(String.class);
-                    String gaz = dataSnapshot.child("gasData/gasValue").getValue(String.class);
+                    String temperature = dataSnapshot.child("sensorData/humidity/temperature").getValue(String.class);
+                    String humidite = dataSnapshot.child("sensorData/humidity/humidity").getValue(String.class);
+                    String pluie = dataSnapshot.child("moistureData/pluie/pluie").getValue(String.class);
+                    String lumiere = dataSnapshot.child("lightData/lightValue/lightValue").getValue(String.class);
+                    String gaz = dataSnapshot.child("gasData/gasData/gasValue").getValue(String.class);
                     Boolean motion = dataSnapshot.child("motionData/motionDetected").getValue(Boolean.class);
 
 

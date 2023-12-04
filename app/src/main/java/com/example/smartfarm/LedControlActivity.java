@@ -47,7 +47,7 @@ public class LedControlActivity extends AppCompatActivity {
         firebaseDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String Lumiere = dataSnapshot.child("lightData/lightValue").getValue(String.class);
+                String Lumiere = dataSnapshot.child("lightData/lightValue/lightValue").getValue(String.class);
                 Boolean ledStatus = dataSnapshot.child("ledData/ledState").getValue(Boolean.class);
                 textViewLumiere.setText(Lumiere);
                 if(ledStatus){

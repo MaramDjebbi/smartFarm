@@ -53,7 +53,7 @@
         />
         <TextView
             android:id="@+id/humidite"
-            android:layout_width="30dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
             android:layout_marginStart="220dp"
@@ -168,7 +168,7 @@
             />
         <TextView
             android:id="@+id/temperature"
-            android:layout_width="30dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
             android:textStyle="bold"
