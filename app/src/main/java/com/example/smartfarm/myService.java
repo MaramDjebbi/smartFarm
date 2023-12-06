@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+
 public class myService extends Service {
     int notificationId = 3;
     String channelId = "channel-03";
@@ -31,7 +32,7 @@ public class myService extends Service {
     int importance = NotificationManager.IMPORTANCE_HIGH;
 
     ValueEventListener listener;
-    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("temperature");
+    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("sensorData/humidity/temperature");
     public void sendmessage(String s) {
         Intent intent = new Intent("service_message");
         intent.putExtra("message_key",s);

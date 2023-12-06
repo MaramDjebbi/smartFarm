@@ -41,9 +41,14 @@
         <activity android:name=".LedControlActivity"
             android:exported="true"/>
 
-
+        <service
+            android:name=".myService"
+            android:enabled="true"
+            android:exported="false" />
 
 
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+
 
 </manifest>
