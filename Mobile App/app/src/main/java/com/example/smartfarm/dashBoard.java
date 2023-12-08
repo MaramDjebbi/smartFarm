@@ -1,11 +1,10 @@
 package com.example.smartfarm;
 
+
 import android.app.Activity;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -13,60 +12,28 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.*;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.*;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.*;
 
-import java.util.Map;
 
 
 public class dashBoard extends AppCompatActivity {
 
     private Button btnLedControl, btnArrosage;
-//    FirebaseMessaging firebaseMessaging;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         createNotificationChannel();
         setContentView(R.layout.dashboard);
-        //start the service
-//        Intent serviceIntent = new Intent(this, myService.class);
-//        startService(serviceIntent);
 
 
         // Références des éléments de l'interface utilisateur
@@ -126,7 +93,7 @@ public class dashBoard extends AppCompatActivity {
                         // Handle null values if needed
                     }
                 } catch (Exception e) {
-                    e.printStackTrace(); // Log any exceptions for debugging
+                    e.printStackTrace();
                 }
             }
 
@@ -173,7 +140,8 @@ public class dashBoard extends AppCompatActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        notificationManager.notify(1, builder.build());    }
+        notificationManager.notify(1, builder.build());
+    }
 
 
 }
